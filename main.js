@@ -1126,76 +1126,174 @@
 // - Scrivere un oggetto che mi permetta di simulare una sala giochi. Questo oggetto dovra' avere una proprieta' che rappresenti una lista di giocatori ed ogni giocatore sara' a sua volta un oggetto con una proprieta' name ed una proprieta' score: []. Scrivere dei metodi che vi permettano di simulare una sfida ai dadi e se ne decreti il vincitore
 
 
+let sala = {
 
-let salaGiochi = {
-
-players : [
-
+    players : [] ,
 
 
-  ] ,
 
-    
-    addPlayers : function(nome, cognome){
+
+    set_winner : function(){
+
+        this.set_scores(6);
+        // this.set_punteggio();
+      
+       this.players.sort((a , b) => b.set_punteggio - a.set_punteggio);
+
+       let winner = this.players[0];
+
+       if( winner.set_punteggio > this.players[1].set_punteggio){
+        console.log(`Il vincitore è ${winner.name} ${winner.surname} e ha totalizzato ${winner.set_punteggio}`);
+
+       } else{
+        console.log('Questa partita non ha vincitori perche i primi sue giocatori hanno pareggiato');
+
+       }
+
+    },
+
+
+
+    set_punteggio : function(){
+
+        this.players.forEach((giocatore) => {
+        giocatore.punteggio = giocatore.scores.reduce( (acc, n) => acc + n ) ;
+      }) ;
+
+    },
+
+    set_scores : function(nTiri){
+
+        this.players.forEach((giocatore) => {
+
+        for(let i = 0 ; i >= nTiri ; i++){
+
+        giocatore.scores.push( Math.floor(Math.random() * (6 - 1 + 1) + 1)) ;
+        
+        }
+     } ) 
+
+
+
+
+    },
+
+
+    addPlayer : function(nome,cognome){
 
         this.players.push({name : nome , surname : cognome , scores : [] }) ;
-
-
-    } ,
-
-
-    setScores : function(nTiri){
-        this.players.forEach((giocatore)=> {
-
-            for(let i = 1 ; i <= nTiri ; i++){
-                giocatore.scores.push(Math.floor(Math.random() * (6 - 1 + 1) + 1)) ;
-            }
-
-        })
-
-    } , 
-
-
-
-        SetFinalScore : function(){
-            this.players.forEach((giocatore)=> {
-
-                giocatore.finalScore = giocatore.scores.reduce((acc , n)=> acc + n) ;
-
-            }) ;
-
-
-        } ,
-
-
-
-        setWinner : function(){
-
-            this.setScores(6) ;
-            this.SetFinalScore() ,
-
-            this.players.sort((a , b)=> b.finalScore - a.finalScore ) ;
-            let winner = this.players[0] ;
-
-            if(winner.finalScore > this.players[1].finalScore){
-                console.log(   `Il vincitore della partita e' ${winner.name} ${winner.surname} che ha totalizzato un punteggio finale di: ${winner.finalScore}`   );
+    },
     
-            } else{
-                console.log(`Questa partita non ha vincitori perche' i primi due giocatori hanno pareggiato!`);
-            }
+    
+    
+    
+    
+    
+    
+}
 
-        } ,
+
+sala.addPlayer('Elison' , 'Di biase' , 'Web developer');
+sala.addPlayer('Alin' , 'Draghia' , 'Web developer');
+sala.addPlayer('Michael' , 'Cotugno' , 'Web developer');
+
+sala.set_winner();
+console.log(sala);
 
 
 
-};
 
-salaGiochi.addPlayers('Elison', 'Di Biase' ) ;
-salaGiochi.addPlayers('Alin', 'Draghia' ) ;
-salaGiochi.addPlayers('Michael', 'Cotugno' ) ;
 
-salaGiochi.setWinner();
-console.log(salaGiochi);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let salaGiochi = {
+
+// players : [
+
+
+
+//   ] ,
+
+    
+//     addPlayers : function(nome, cognome){
+
+//         this.players.push({name : nome , surname : cognome , scores : [] }) ;
+
+
+//     } ,
+
+
+//     setScores : function(nTiri){
+//         this.players.forEach((giocatore)=> {
+
+//             for(let i = 1 ; i <= nTiri ; i++){
+//                 giocatore.scores.push(Math.floor(Math.random() * (6 - 1 + 1) + 1)) ;
+//             }
+
+//         })
+
+//     } , 
+
+
+
+//         SetFinalScore : function(){
+//             this.players.forEach((giocatore)=> {
+
+//                 giocatore.finalScore = giocatore.scores.reduce((acc , n)=> acc + n) ;
+
+//             }) ;
+
+
+//         } ,
+
+
+
+//         setWinner : function(){
+
+//             this.setScores(6) ;
+//             this.SetFinalScore() ,
+
+//             this.players.sort((a , b)=> b.finalScore - a.finalScore ) ;
+//             let winner = this.players[0] ;
+
+//             if(winner.finalScore > this.players[1].finalScore){
+//                 console.log(   `Il vincitore della partita e' ${winner.name} ${winner.surname} che ha totalizzato un punteggio finale di: ${winner.finalScore}`   );
+    
+//             } else{
+//                 console.log(`Questa partita non ha vincitori perche' i primi due giocatori hanno pareggiato!`);
+//             }
+
+//         } ,
+
+
+
+// };
+
+// salaGiochi.addPlayers('Elison', 'Di Biase' ) ;
+// salaGiochi.addPlayers('Alin', 'Draghia' ) ;
+// salaGiochi.addPlayers('Michael', 'Cotugno' ) ;
+
+// salaGiochi.setWinner();
+// console.log(salaGiochi);
 
 
 
